@@ -1,5 +1,3 @@
-# This code samples images from a video
-
 import cv2
 
 SAMPLE_JUMP = 100
