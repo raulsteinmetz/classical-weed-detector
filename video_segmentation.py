@@ -3,16 +3,10 @@ import segmentation as seg
 import numpy as np
 from pre_processing import gaussian
 
-cap = cv2.VideoCapture("./videos/sample_video1.mp4")
+cap = cv2.VideoCapture("./videos/sample_video3.mp4")
 
-# Get the video dimensions
-fps = cap.get(cv2.CAP_PROP_FPS)
-width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH) * 0.25)
-height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT) * 0.25)
-
-# Define the codec and create VideoWriter object
-fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-out = cv2.VideoWriter('output.mp4', fourcc, fps, (width*2, height))
+# Create a named window for the contours
+cv2.namedWindow("Contours", cv2.WINDOW_NORMAL)
 
 # Loop through the frames of the video
 while True:
@@ -20,26 +14,30 @@ while True:
     if not ret:
         break
     
-    # reducing resolution of the frame
     frame = gaussian(frame)
+    mask = seg.final_mask(frame)
 
-    # green and brown mask
-    combined_mask = seg.final_mask(frame)
+    frame = cv2.resize(frame, None, fx=0.25, fy=0.25, interpolation=cv2.INTER_CUBIC)
+    mask = cv2.resize(mask, None, fx=0.25, fy=0.25, interpolation=cv2.INTER_CUBIC)
 
-    # Concatenate the original and segmented images side by side
-    output_frame = np.concatenate((frame, combined_mask), axis=1)
+    # Manipulating mask
+    mask = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY) # gray scale
+    mask = cv2.adaptiveThreshold(mask, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
 
-    # reduce the resolution to fit in a 1920x1080 monitor
-    output_frame = cv2.resize(output_frame, None, fx=0.25, fy=0.25, interpolation=cv2.INTER_CUBIC)
+    # Find contours in the mask
+    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    # Write the frame to the output video file
-    out.write(output_frame)
+    # Draw the contours on a black image
+    contour_img = np.zeros_like(mask)
+    contour_img = cv2.drawContours(contour_img, contours, -1, (255, 255, 255), 2)
 
-    cv2.imshow("Video", output_frame)
+    # Show the original image and the mask with contours in different windows
+    cv2.imshow("Original", frame)
+    cv2.imshow("Binary", mask)
+    cv2.imshow("Contours", contour_img)
     
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 cap.release()
-out.release()
 cv2.destroyAllWindows()

@@ -13,33 +13,19 @@ def green_seg(img):
     kernel = np.ones((5,5),np.uint8)
     green_mask = cv2.morphologyEx(green_mask, cv2.MORPH_OPEN, kernel)
 
+    # Erode and dilate the green mask
+    kernel = np.ones((5, 5), np.uint8)
+    green_mask = cv2.erode(green_mask, kernel, iterations=1) # reduce noise
+    # green_mask = cv2.dilate(green_mask, kernel, iterations=3) # soy more aparent
+
+    # use this to create the line
+    green_mask = cv2.dilate(green_mask, kernel, iterations=8)
+
     # Return the green mask
     return green_mask
 
-def brown_seg(img):
-    # Convert the image to HSV color space
-    hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    # Define lower and upper bounds of dark brown color in HSV
-    lower_brown = np.array([10, 60, 20])
-    upper_brown = np.array([20, 255, 90])
-    # Create a mask for dark brown pixels
-    brown_mask = cv2.inRange(hsv_img, lower_brown, upper_brown)
-    # Apply morphological operations to remove noise and smooth the masks
-    kernel = np.ones((5,5),np.uint8)
-    brown_mask = cv2.morphologyEx(brown_mask, cv2.MORPH_OPEN, kernel)
-
-    # Return the brown mask
-    return brown_mask
-
 def final_mask(img):
-    # Apply green segmentation
     green_mask = green_seg(img)
+    return cv2.bitwise_and(img, img, mask=green_mask)
 
-    # Apply brown segmentation
-    brown_mask = brown_seg(img)
 
-    # Combine the two masks by bitwise ORing them together
-    combined_mask = cv2.bitwise_or(green_mask, brown_mask)
-
-    # Apply the combined mask to the original image to extract both green and brown areas
-    return cv2.bitwise_and(img, img, mask=combined_mask)
