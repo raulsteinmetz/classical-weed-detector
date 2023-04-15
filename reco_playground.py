@@ -6,7 +6,7 @@ from pre_processing import gaussian
 
 scale = 0.5
 
-image = cv2.imread('./images/soy_weed2.png')
+image = cv2.imread('./images/soy_weed.png')
 
 image = gaussian(image)
 mask = seg.final_mask(image)

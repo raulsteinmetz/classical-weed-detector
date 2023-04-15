@@ -3,7 +3,7 @@ import segmentation as seg
 import numpy as np
 from pre_processing import gaussian
 
-cap = cv2.VideoCapture("./videos/sample_video2.mp4")
+cap = cv2.VideoCapture("./videos/sample_video3.mp4")
 
 scale = 0.2
 
