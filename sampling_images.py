@@ -58,10 +58,10 @@ def sample(video_path, samples_path, name, frame_interval):
 
 def main():
     for i in np.arange(3):
-        sample(f'./videos/sample_video{i + 1}.mp4',
+        sample(f'./videos/sample_video{i + 1}.MP4',
             f'./images/sample{i + 1}/',
             f'sample{i + 1}',
-            30)
+            15)
 
 
 if __name__ == '__main__':
