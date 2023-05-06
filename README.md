@@ -1,1 +1,1 @@
-# soyImageProcessing
+# Weed detection project
