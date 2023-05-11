@@ -1,10 +1,9 @@
-from ultralytics import YOLO
+from roboflow import Roboflow
 
-# Load a model
-model = YOLO("yolov8n.pt")  # load a pretrained model (recommended for training)
+rf = Roboflow(api_key='_')
+workspace = rf.workspace('_')
 
-# Use the model
-model.train(data="coco128.yaml", epochs=3)  # train the model
-metrics = model.val()  # evaluate model performance on the validation set
-results = model("https://ultralytics.com/images/bus.jpg")  # predict on an image
-success = model.export(format="onnx")  # export the model to ONNX format
+model = rf.get_model(model_id='your_model_id_here')
+
+image = rf.image(file='test_image.jpg')
+predictions = model.predict(image)

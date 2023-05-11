@@ -1,7 +1,7 @@
 import cv2
 import ClassicalWeedDetector.segmentation as seg
 import numpy as np
-from ClassicalWeedDetector.pre_processing import gaussian
+from ClassicalWeedDetector.preprocessing import gaussian
 
 
 scale = 0.5
