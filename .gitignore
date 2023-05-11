@@ -167,3 +167,5 @@ cython_debug/
 *.png
 
 *.MP4
+
+dataset_yolov8/*
