@@ -168,4 +168,9 @@ cython_debug/
 
 *.MP4
 
-dataset_yolov8/*
+dataset_yolov8/train 
+dataset_yolov8/test 
+dataset_yolov8/valid 
+dataset_yolov8/runs
+dataset_yolov8/*.yaml
+dataset_yolov8/*.txt
