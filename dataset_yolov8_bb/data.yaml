@@ -1,0 +1,13 @@
+train: ./train/images
+val: ./valid/images
+test: ./test/images
+
+nc: 2
+names: ['caruru', 'graminia']
+
+roboflow:
+  workspace: raul-steinmetz
+  project: soyweeddetection
+  version: 4
+  license: MIT
+  url: https://universe.roboflow.com/raul-steinmetz/soyweeddetection/dataset/4
