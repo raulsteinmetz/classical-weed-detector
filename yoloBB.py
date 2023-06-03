@@ -26,6 +26,8 @@ while True:
     if not ret:
         break
 
+    time = frame_counter / 60.0
+
 
     frame = cv2.resize(frame, (640, 640))
 
@@ -57,7 +59,7 @@ while True:
             annotator.box_label(b, model.names[int(c)])
             #log
             x, y, x2, y2 = map(int, b)
-            df = df.append({'frame': frame_counter, 'time': 0,
+            df = df.append({'frame': frame_counter, 'time': time,
                             'class': model.names[int(c)], 'min_confidence': 0.6,
                             'bounding_box_x': x/RESOLUTION, 'bounding_box_y': y/RESOLUTION,
                             'bounding_box_x2': x2/RESOLUTION, 'bounding_box_y2': y2/RESOLUTION},
