@@ -3,11 +3,11 @@ import numpy as np
 from ultralytics import YOLO
 
 model = YOLO('./dataset_yolov8_bb/runs/detect/train2/weights/best.pt')
-cap = cv2.VideoCapture("./videos/video3.MP4")
+cap = cv2.VideoCapture("./videos/video2.MP4")
 
 # Define the codec and create VideoWriter object
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-out = cv2.VideoWriter('./bb_detection_videos/video3BB.mp4', fourcc, 30.0, (640, 640))
+out = cv2.VideoWriter('./bb_detection_videos/video2BB.mp4', fourcc, 30.0, (640, 640))
 
 i = 0
 frame_counter = 0
