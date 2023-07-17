@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 3
+names: ['caruru', 'graminia', 'soy']
+
+roboflow:
+  workspace: raul-steinmetz
+  project: trabalho_da_faculdade
+  version: 7
+  license: MIT
+  url: https://universe.roboflow.com/raul-steinmetz/trabalho_da_faculdade/dataset/7

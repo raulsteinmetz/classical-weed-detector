@@ -1,5 +1,4 @@
 import cv2
-import numpy as np
 from ultralytics import YOLO
 
 model = YOLO('./dataset_yolo_v8_ss/runs/segment/train/weights/best.pt')
@@ -20,7 +19,10 @@ while True:
 
     frame = cv2.resize(frame, (640, 640))
 
-    results = model.predict(source=frame, save=False, save_txt=False, conf=0.2, show=True)
+    results = model.predict(source=frame, save=False, save_txt=True, conf=0.1, show=True)
+    result = results[0]
+    masks = result.masks
+    print(len(masks))
 
     frame_counter += 1
     
