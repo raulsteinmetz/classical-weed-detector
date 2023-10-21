@@ -43,10 +43,6 @@ def sample(video_path, samples_path, name, frame_interval):
 
                 sample_count += 1
 
-            # Display the frame (optional)
-            # cv2.imshow('Video', frame)
-            # if cv2.waitKey(25) & 0xFF == ord('q'):
-            #     break
         else:
             break
 
